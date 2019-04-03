@@ -152,7 +152,7 @@ def cfm_id(spectrum_file, candidate_file, num_highest=-1, ppm_mass_tol=10, abs_m
     return parser_cfm_id(output_file)
 
 
-def cfm_id_biodb(spectrum_dataframe, formula, energy='high', database='biodb', input_dir=None, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None):
+def cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='biodb', input_dir=None, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None):
     input_dir = check_input_file(input_dir)
     output_file = check_output_file(output_file)
     if param_file == '':
@@ -161,6 +161,7 @@ def cfm_id_biodb(spectrum_dataframe, formula, energy='high', database='biodb', i
         config_file = os.path.join(os.getcwd(), 'PyCFMID', 'Pretrain', 'param_config.txt')
     spectrum_file = os.path.join(input_dir, 'spectrum.txt')
     candidate_file = os.path.join(input_dir, 'candidate.txt')
+    spectrum_file = write_spectrum(spectrum_dataframe, spectrum_file, energy_level)
     if database == 'biodb':
         candidates = search_biodatabase(formula, candidate_file)
     else:
