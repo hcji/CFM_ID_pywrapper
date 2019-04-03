@@ -171,7 +171,7 @@ def cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='
     
     
 def write_spectrum(spectrum_dataframe, spectrum_file, energy_level='high'):
-    with open(spectrum_file, 'w') as t:
+    with open(spectrum_file, 'w+') as t:
         t.write('energy0' + '\n')
         if energy_level == 'low':
             for s in range(len(spectrum_dataframe)):
