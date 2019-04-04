@@ -230,7 +230,7 @@ def search_pubchem(formula, output_file=None, timeout=999):
                     wh = np.where(np.array(smiles)==smiles_ij)[0][0]
                     all_cids[wh] = all_cids[wh] + ', ' + str(properties_ij['CID'])
     result = pd.DataFrame({'InChIKey': inchikey, 'SMILES': smiles, 'PubChem': all_cids})
-    output = pd.DataFrame({'ID': result['PubChem'], 'Smiles': result['SMILES']})
+    output = pd.DataFrame({'ID': result.index, 'Smiles': result['SMILES']})
     output.to_csv(output_file, header=False, index=False, sep=' ')
     return result
     
