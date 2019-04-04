@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 import subprocess
 import pandas as pd
 import numpy as np
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def check_output_file(output_file=None):
     if output_file is None:
