@@ -12,7 +12,7 @@ from PyCFMID.PyCFMID import cfm_id_database
 from joblib import Parallel, delayed
 import multiprocessing
 
-num_cores = min(multiprocessing.cpu_count(), 6)
+num_cores = min(multiprocessing.cpu_count(), 10)
 result = pd.read_excel(os.path.join('Output', 'result.xlsx'))
 
 def process_one_sample(i):
