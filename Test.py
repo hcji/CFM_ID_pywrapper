@@ -19,7 +19,7 @@ def process_one_sample(i, database='biodb'):
     kegg = result['kegg'][i]
     formula = result['formula'][i]
     chebi = result['chebi'][i]
-    pubchem = result['pubchem'][i]
+    pubchem = str(result['pubchem'][i])
     spectrum_file = os.path.join(os.getcwd(), 'Spectra', kegg + '.csv')
     spectrum_dataframe = pd.read_csv(spectrum_file) 
     try:
