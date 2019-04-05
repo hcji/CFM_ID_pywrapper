@@ -170,6 +170,8 @@ def cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='
         candidates = search_pubchem(formula, candidate_file)
     else:
         candidates = pd.read_csv(database)
+        output = pd.DataFrame({'ID': candidates.index, 'Smiles': candidates['SMILES']})
+        output.to_csv(candidate_file, header=False, index=False, sep=' ')
     result = cfm_id(spectrum_file, candidate_file, num_highest, ppm_mass_tol, abs_mass_tol, prob_thresh, param_file, config_file, score_type, apply_postprocessing, output_file)
     return {'candidates':candidates, 'result':result}
     
