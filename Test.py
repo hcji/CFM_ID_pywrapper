@@ -8,7 +8,7 @@ Created on Wed Apr  3 10:55:15 2019
 import os
 import pandas as pd
 import numpy as np
-from PyCFMID.PyCFMID import cfm_id_database, search_pubchem, parser_cfm_id
+from PyCFMID.PyCFMID import cfm_id_database, search_pubchem, search_biodatabase, parser_cfm_id
 from joblib import Parallel, delayed
 from tqdm import tqdm
 import multiprocessing
@@ -18,7 +18,7 @@ result = pd.read_excel(os.path.join('Output', 'result.xlsx'))
 
 '''
 os.mkdir('Candidate')
-for i in tqdm(range(len(result))):
+for i in tqdm(range(411, len(result))):
     formula = result['formula'][i]
     kegg = result['kegg'][i]
     candidate = search_pubchem(formula)
@@ -41,7 +41,12 @@ def process_one_sample(i, database='biodb'):
     input_dir = os.path.join(os.getcwd(), 'Input', kegg)
     output_file = os.path.join(os.getcwd(), 'Output', str(kegg) + '.txt')
     if database == 'biodb':
-        result_biodb = cfm_id_database(spectrum_dataframe, formula, database='biodb', input_dir=input_dir, output_file=output_file)
+        if str(kegg) + '.txt' in os.listdir(os.path.join(os.getcwd(), 'Output')):
+            result_biodb = {}
+            result_biodb['result'] = parser_cfm_id(os.path.join(os.getcwd(), 'Output', str(kegg) + '.txt'))
+            result_biodb['candidates'] = search_biodatabase(formula)
+        else:
+            result_biodb = cfm_id_database(spectrum_dataframe, formula, database='biodb', input_dir=input_dir, output_file=output_file)
     else:
         if str(kegg) + '.txt' in os.listdir(os.path.join(os.getcwd(), 'Output')):
             result_biodb = {}
