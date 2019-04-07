@@ -54,7 +54,8 @@ def process_one_sample(i, database='pubchem'):
             result_biodb['candidates'] = pd.read_csv(os.path.join(os.getcwd(), 'Candidate', str(kegg)+'.csv'))
         else:    
             result_biodb = cfm_id_database(spectrum_dataframe, formula, database=database_file, input_dir=input_dir, output_file=output_file)
-    for j in result_biodb['candidates'].index:
+    whtrue = -1
+	for j in result_biodb['candidates'].index:
         if database == 'biodb':
             x = str(result_biodb['candidates']['ChEBI'][j])
             x = x.replace(' ','')
@@ -66,9 +67,12 @@ def process_one_sample(i, database='pubchem'):
             x = x.replace(' ','')
             x = x.split(',')
             if pubchem in x:
-                whtrue = j            
-    score_of_true = max(result_biodb['result']['Score'][ result_biodb['result']['ID']==whtrue])
-    rank = len(np.where(result_biodb['result']['Score'] > score_of_true)[0]) + 1
+                whtrue = j
+	if whtrue < 0:
+		rank = 9999
+	else:
+		score_of_true = max(result_biodb['result']['Score'][ result_biodb['result']['ID']==whtrue])
+		rank = len(np.where(result_biodb['result']['Score'] > score_of_true)[0]) + 1
     return rank
 
 rank = Parallel(n_jobs=num_cores, verbose=5)(delayed(process_one_sample)(i) for i in range(len(result)))
