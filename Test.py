@@ -26,7 +26,7 @@ for i in tqdm(range(411, len(result))):
     candidate.to_csv(os.path.join(os.getcwd(), 'Candidate', str(kegg)+'.csv'), index=False)
 ''' 
 
-def process_one_sample(i, database='pubchem'):
+def process_one_sample(i, database='biodb'):
     kegg = result['kegg'][i]
     formula = result['formula'][i]
     chebi = result['chebi'][i]
@@ -55,7 +55,7 @@ def process_one_sample(i, database='pubchem'):
         else:    
             result_biodb = cfm_id_database(spectrum_dataframe, formula, database=database_file, input_dir=input_dir, output_file=output_file)
     whtrue = -1
-	for j in result_biodb['candidates'].index:
+    for j in result_biodb['candidates'].index:
         if database == 'biodb':
             x = str(result_biodb['candidates']['ChEBI'][j])
             x = x.replace(' ','')
@@ -68,11 +68,11 @@ def process_one_sample(i, database='pubchem'):
             x = x.split(',')
             if pubchem in x:
                 whtrue = j
-	if whtrue < 0:
-		rank = 9999
-	else:
-		score_of_true = max(result_biodb['result']['Score'][ result_biodb['result']['ID']==whtrue])
-		rank = len(np.where(result_biodb['result']['Score'] > score_of_true)[0]) + 1
+    if whtrue < 0:
+        rank = 9999
+    else:
+        score_of_true = max(result_biodb['result']['Score'][ result_biodb['result']['ID']==whtrue])
+        rank = len(np.where(result_biodb['result']['Score'] > score_of_true)[0]) + 1
     return rank
 
 rank = Parallel(n_jobs=num_cores, verbose=5)(delayed(process_one_sample)(i) for i in range(len(result)))
