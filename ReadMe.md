@@ -60,7 +60,7 @@ Given an input spectrum and a list of candidate smiles strings, this program com
 ### cfm_id_database
 Given an input spectrum, this program retrieves candidates automatically and computes the predicted spectrum for each candidate and compares it to the input spectrum. It returns a ranking of the candidates according to how closely they match. The spectrum prediction is done using a pre-trained CFM model.
 
-	from PyCFMID.PyCFMID import cfm_id
+	from PyCFMID.PyCFMID import cfm_id_database
 	result = cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='biodb', input_dir=None, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None)
 	
 **spectrum_dataframe**: A two-column dataframe with m/z and intensity of a spectrum.  
