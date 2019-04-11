@@ -46,7 +46,7 @@ Given an input spectrum and a list of candidate smiles strings, this program com
 	result = cfm_id(spectrum_file, candidate_file, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None)
 
 **spectrum_file**: The filename where the input the spectrum. see [example_spectra.txt](https://sourceforge.net/p/cfm-id/code/HEAD/tree/cfm/example_spec.txt) as an example.   
-**candidate_file**: The filename where the input list of candidate structures can be found as line separated 'id smiles_or_inchi' pairs. see[example_candidates.txt](https://sourceforge.net/p/cfm-id/code/HEAD/tree/cfm/example_candidates.txt) as an example.   
+**candidate_file**: The filename where the input list of candidate structures can be found as line separated 'id smiles_or_inchi' pairs. see [example_candidates.txt](https://sourceforge.net/p/cfm-id/code/HEAD/tree/cfm/example_candidates.txt) as an example.   
 **num_highest** (optional): The number of (ranked) candidates to return or -1 for all (if not given, returns all in ranked order).	  
 **ppm_mass_tol**: (optional) The mass tolerance in ppm to use when matching peaks within the dot product comparison - will use higher resulting tolerance of ppm and abs (if not given defaults to 10 ppm).   
 **abs_mass_tol**: (optional) The mass tolerance in abs Da to use when matching peaks within the dot product comparison - will use higher resulting tolerance of ppm and abs (if not given defaults to 0.01 Da).	  
@@ -61,7 +61,7 @@ Given an input spectrum and a list of candidate smiles strings, this program com
 Given an input spectrum, this program retrieves candidates automatically and computes the predicted spectrum for each candidate and compares it to the input spectrum. It returns a ranking of the candidates according to how closely they match. The spectrum prediction is done using a pre-trained CFM model.
 
 	from PyCFMID.PyCFMID import cfm_id
-	cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='biodb', input_dir=None, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None)
+	result = cfm_id_database(spectrum_dataframe, formula, energy_level='high', database='biodb', input_dir=None, num_highest=-1, ppm_mass_tol=10, abs_mass_tol=0.01, prob_thresh=0.001, param_file='', config_file='', score_type='Jaccard', apply_postprocessing=True, output_file=None)
 	
 **spectrum_dataframe**: A two-column dataframe with m/z and intensity of a spectrum.  
 **formula**: The formula of the candidates.  
